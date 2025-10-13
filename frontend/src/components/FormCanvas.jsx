@@ -29,7 +29,7 @@ const FormCanvas = ({
   const renderFormElement = (element) => {
     const isSelected = selectedElement === element.id;
     
-    const baseClasses = `p-4 rounded-lg border-2 transition-all ${
+    const baseClasses = `p-4 sm:p-6 rounded-lg border-2 transition-all ${
       isSelected 
         ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20' 
         : 'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500'
@@ -45,7 +45,7 @@ const FormCanvas = ({
             <input
               type="text"
               placeholder={element.placeholder}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               readOnly
             />
           </div>
@@ -60,7 +60,7 @@ const FormCanvas = ({
             <textarea
               placeholder={element.placeholder}
               rows={3}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-vertical"
+              className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-vertical"
               readOnly
             />
           </div>
@@ -72,7 +72,7 @@ const FormCanvas = ({
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {element.label} {element.required && <span className="text-red-500">*</span>}
             </label>
-            <select className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+            <select className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
               <option value="">Select an option</option>
               {element.options?.map((option, index) => (
                 <option key={index} value={option}>{option}</option>
@@ -125,7 +125,7 @@ const FormCanvas = ({
             </label>
             <input
               type="date"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+              className="w-full px-3 py-2 text-sm sm:text-base border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
               readOnly
             />
           </div>
@@ -138,10 +138,10 @@ const FormCanvas = ({
               {element.label} {element.required && <span className="text-red-500">*</span>}
             </label>
             <div className="flex items-center justify-center w-full">
-              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
-                <div className="flex flex-col items-center justify-center pt-5 pb-6">
-                  <Upload size={24} className="text-gray-400 mb-2" />
-                  <p className="text-sm text-gray-500 dark:text-gray-400">
+              <label className="flex flex-col items-center justify-center w-full h-24 sm:h-32 border-2 border-gray-300 dark:border-gray-600 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors">
+                <div className="flex flex-col items-center justify-center pt-3 pb-4 sm:pt-5 sm:pb-6">
+                  <Upload size={20} className="text-gray-400 mb-1 sm:mb-2" />
+                  <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 text-center px-2">
                     <span className="font-semibold">Click to upload</span> or drag and drop
                   </p>
                 </div>
@@ -157,17 +157,17 @@ const FormCanvas = ({
   };
 
   return (
-    <div className="flex-1 bg-gray-50 dark:bg-gray-900 p-8 overflow-y-auto">
+    <div className="flex-1 bg-gray-50 dark:bg-gray-900 p-4 sm:p-6 lg:p-8 overflow-y-auto">
       <div className="max-w-2xl mx-auto">
         {/* Editable Form Header */}
-        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-8 mb-8">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
           {isEditingTitle ? (
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-2 mb-3 sm:mb-4">
               <input
                 type="text"
                 value={tempTitle}
                 onChange={(e) => setTempTitle(e.target.value)}
-                className="flex-1 text-2xl font-bold bg-transparent border-b-2 border-primary-500 focus:outline-none text-gray-900 dark:text-white"
+                className="flex-1 text-xl sm:text-2xl font-bold bg-transparent border-b-2 border-primary-500 focus:outline-none text-gray-900 dark:text-white"
                 autoFocus
                 onKeyPress={(e) => {
                   if (e.key === 'Enter') {
@@ -180,12 +180,12 @@ const FormCanvas = ({
                 className="p-1 text-green-600 hover:text-green-700 transition-colors"
                 title="Save title"
               >
-                <Save size={20} />
+                <Save size={18} className="sm:w-5 sm:h-5" />
               </button>
             </div>
           ) : (
-            <div className="flex items-center space-x-2 mb-4 group">
-              <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="flex items-center space-x-2 mb-3 sm:mb-4 group">
+              <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white break-words">
                 {formTitle}
               </h1>
               <button
@@ -193,10 +193,10 @@ const FormCanvas = ({
                   setTempTitle(formTitle);
                   setIsEditingTitle(true);
                 }}
-                className="p-1 opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-700 transition-all"
+                className="p-1 opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-700 transition-all flex-shrink-0"
                 title="Edit title"
               >
-                <Edit2 size={16} />
+                <Edit2 size={16} className="sm:w-4 sm:h-4" />
               </button>
             </div>
           )}
@@ -206,7 +206,7 @@ const FormCanvas = ({
               <textarea
                 value={tempDescription}
                 onChange={(e) => setTempDescription(e.target.value)}
-                className="flex-1 bg-transparent border-b-2 border-primary-500 focus:outline-none text-gray-500 dark:text-gray-400 resize-none"
+                className="flex-1 bg-transparent border-b-2 border-primary-500 focus:outline-none text-gray-500 dark:text-gray-400 resize-none text-sm sm:text-base"
                 rows="2"
                 autoFocus
                 onKeyPress={(e) => {
@@ -220,12 +220,12 @@ const FormCanvas = ({
                 className="p-1 text-green-600 hover:text-green-700 transition-colors mt-1"
                 title="Save description"
               >
-                <Save size={16} />
+                <Save size={16} className="sm:w-4 sm:h-4" />
               </button>
             </div>
           ) : (
             <div className="flex items-start space-x-2 group">
-              <p className="text-gray-500 dark:text-gray-400 flex-1">
+              <p className="text-gray-500 dark:text-gray-400 flex-1 text-sm sm:text-base break-words">
                 {formDescription}
               </p>
               <button
@@ -233,26 +233,26 @@ const FormCanvas = ({
                   setTempDescription(formDescription);
                   setIsEditingDescription(true);
                 }}
-                className="p-1 opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-700 transition-all mt-1"
+                className="p-1 opacity-0 group-hover:opacity-100 text-gray-500 hover:text-gray-700 transition-all mt-1 flex-shrink-0"
                 title="Edit description"
               >
-                <Edit2 size={14} />
+                <Edit2 size={14} className="sm:w-3.5 sm:h-3.5" />
               </button>
             </div>
           )}
         </div>
 
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {elements.length === 0 ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 mx-auto mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
-                <Type className="text-gray-400" size={24} />
+            <div className="text-center py-8 sm:py-12">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 bg-gray-100 dark:bg-gray-800 rounded-full flex items-center justify-center">
+                <Type className="text-gray-400 w-6 h-6 sm:w-8 sm:h-8" />
               </div>
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              <h3 className="text-base sm:text-lg font-medium text-gray-900 dark:text-white mb-2">
                 No form elements yet
               </h3>
-              <p className="text-gray-500 dark:text-gray-400 mb-4">
-                Drag elements from the sidebar or click to add them
+              <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mb-3 sm:mb-4 px-4">
+                Click on elements in the sidebar to add them to your form
               </p>
             </div>
           ) : (
@@ -264,10 +264,10 @@ const FormCanvas = ({
               >
                 {renderFormElement(element)}
                 
-                {/* Element controls */}
-                <div className="absolute top-2 right-2 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                {/* Element controls - responsive positioning */}
+                <div className="absolute top-2 right-2 sm:top-3 sm:right-3 flex space-x-1 opacity-0 group-hover:opacity-100 transition-opacity">
                   <button className="p-1 bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors">
-                    <GripVertical size={16} />
+                    <GripVertical size={14} className="sm:w-4 sm:h-4" />
                   </button>
                   <button 
                     onClick={(e) => {
@@ -276,7 +276,7 @@ const FormCanvas = ({
                     }}
                     className="p-1 bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:text-red-600 dark:hover:text-red-400 transition-colors"
                   >
-                    <Trash2 size={16} />
+                    <Trash2 size={14} className="sm:w-4 sm:h-4" />
                   </button>
                 </div>
               </div>

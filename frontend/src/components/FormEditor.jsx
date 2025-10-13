@@ -11,6 +11,8 @@ const FormEditor = () => {
   const [formElements, setFormElements] = useState([]);
   const [formTitle, setFormTitle] = useState('Untitled Form');
   const [formDescription, setFormDescription] = useState('Form description goes here...');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isPropertiesOpen, setIsPropertiesOpen] = useState(true);
 
   const addFormElement = (type) => {
     const newElement = {
@@ -48,25 +50,17 @@ const FormEditor = () => {
       version: '1.0'
     };
 
-    // Convert to JSON string with nice formatting
     const jsonString = JSON.stringify(formData, null, 2);
-    
-    // Create a Blob with the JSON data
     const blob = new Blob([jsonString], { type: 'application/json' });
-    
-    // Create a download link
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
     link.download = `${formTitle.replace(/\s+/g, '_').toLowerCase()}_form.json`;
-    
-    // Trigger download
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 
-    // Optional: Show success message
     alert(`Form exported successfully as ${link.download}`);
   };
 
@@ -79,6 +73,19 @@ const FormEditor = () => {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>${formTitle}</title>
     <style>
+        /* Responsive styles for exported form */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            .form-container {
+                padding: 1rem;
+            }
+            .form-title {
+                font-size: 1.5rem;
+            }
+        }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             max-width: 800px;
@@ -285,7 +292,6 @@ const FormEditor = () => {
             alert('Form submitted successfully!');
         });
 
-        // File upload click handling
         const fileInputs = document.querySelectorAll('input[type="file"]');
         fileInputs.forEach(input => {
             input.addEventListener('change', function() {
@@ -297,7 +303,6 @@ const FormEditor = () => {
 </body>
 </html>`;
 
-    // Create and download HTML file
     const blob = new Blob([htmlContent], { type: 'text/html' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -311,44 +316,77 @@ const FormEditor = () => {
     alert(`Form exported as HTML: ${link.download}`);
   };
 
-  // Enhanced export with multiple format options
   const handleExport = () => {
     if (formElements.length === 0) {
       alert('Please add some form elements before exporting.');
       return;
     }
 
-    // Ask user for export format
     const format = prompt('Choose export format:\n1. JSON (Form Data)\n2. HTML (Working Form)\n\nEnter 1 or 2:');
     
     if (format === '1') {
-      exportForm(); // JSON export
+      exportForm();
     } else if (format === '2') {
-      exportAsHTML(); // HTML export
+      exportAsHTML();
     } else if (format !== null) {
       alert('Invalid choice. Please enter 1 or 2.');
     }
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const toggleProperties = () => {
+    setIsPropertiesOpen(!isPropertiesOpen);
+  };
+
   return (
     <div className="flex flex-col h-screen">
-      <Header onExport={handleExport} />
+      <Header 
+        onExport={handleExport} 
+        onToggleSidebar={toggleSidebar}
+        onToggleProperties={toggleProperties}
+        isSidebarOpen={isSidebarOpen}
+        isPropertiesOpen={isPropertiesOpen}
+      />
       <div className="flex flex-1 overflow-hidden">
-        <Sidebar onAddElement={addFormElement} />
-        <FormCanvas
-          elements={formElements}
-          selectedElement={selectedElement}
-          onSelectElement={setSelectedElement}
-          onDeleteElement={deleteFormElement}
-          formTitle={formTitle}
-          formDescription={formDescription}
-          onTitleChange={setFormTitle}
-          onDescriptionChange={setFormDescription}
-        />
-        <PropertiesPanel
-          selectedElement={formElements.find(el => el.id === selectedElement)}
-          onUpdateElement={updateFormElement}
-        />
+        {/* Sidebar with responsive behavior */}
+        <div className={`
+          ${isSidebarOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full'} 
+          lg:w-64 lg:translate-x-0
+          transition-all duration-300 ease-in-out
+          flex-shrink-0
+        `}>
+          <Sidebar onAddElement={addFormElement} />
+        </div>
+        
+        {/* Main canvas area */}
+        <div className="flex-1 min-w-0">
+          <FormCanvas
+            elements={formElements}
+            selectedElement={selectedElement}
+            onSelectElement={setSelectedElement}
+            onDeleteElement={deleteFormElement}
+            formTitle={formTitle}
+            formDescription={formDescription}
+            onTitleChange={setFormTitle}
+            onDescriptionChange={setFormDescription}
+          />
+        </div>
+
+        {/* Properties panel with responsive behavior */}
+        <div className={`
+          ${isPropertiesOpen ? 'w-80 translate-x-0' : 'w-0 translate-x-full'} 
+          lg:w-80 lg:translate-x-0
+          transition-all duration-300 ease-in-out
+          flex-shrink-0
+        `}>
+          <PropertiesPanel
+            selectedElement={formElements.find(el => el.id === selectedElement)}
+            onUpdateElement={updateFormElement}
+          />
+        </div>
       </div>
     </div>
   );
