@@ -1,6 +1,8 @@
 import React from 'react';
 import { useTheme } from '../contexts/ThemeContext';
 import { Sun, Moon, Download, Eye } from 'lucide-react';
+import { Menu } from "lucide-react";
+
 
 const Header = ({ onExport }) => {
   const { isDark, toggleTheme } = useTheme();
