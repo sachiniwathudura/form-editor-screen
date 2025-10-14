@@ -1,12 +1,9 @@
+# Donely Form Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 A modern, responsive Form Editor built with React and Tailwind CSS that allows users to create and customize forms with a drag-and-drop interface.
 
-Currently, two official plugins are available:
 ## 🚀 Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 - **Drag & Drop Form Builder**
 - **Real-time Properties Panel**
 - **Dark/Light Mode Toggle**
@@ -93,3 +90,5 @@ src/
 ## 📄 License
 
 This project is licensed under the MIT License.
+
+
