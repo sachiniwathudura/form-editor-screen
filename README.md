@@ -25,7 +25,7 @@ A modern, responsive Form Editor built with React and Tailwind CSS that allows u
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone (https://github.com/sachiniwathudura/form-editor-screen.git)
 cd form-editor-screen
 
 # Install dependencies
